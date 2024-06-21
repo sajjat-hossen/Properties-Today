@@ -1,6 +1,7 @@
 ﻿using Application.Repositories;
 using Domain;
 using Infrastructure.Contexts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +35,17 @@ namespace Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task GetByIdAsync(Guid id)
+        public async Task<Property> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Properties
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
         }
 
-        public Task UpdateAsync(Property property)
+        public async Task UpdateAsync(Property property)
         {
-            throw new NotImplementedException();
+            _context.Properties.Update(property);
+            await _context.SaveChangesAsync();
         }
     }
 }

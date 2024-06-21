@@ -13,9 +13,9 @@ namespace Application.Features.Properties.Commands
 {
     public class CreatePropertyRequest : IRequest<bool>
     {
-        public NewPropertyRequest PropertyRequest { get; set; }
+        public NewProperty PropertyRequest { get; set; }
 
-        public CreatePropertyRequest(NewPropertyRequest newPropertyRequest)
+        public CreatePropertyRequest(NewProperty newPropertyRequest)
         {
             PropertyRequest = newPropertyRequest;
         }

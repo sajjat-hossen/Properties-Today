@@ -13,6 +13,6 @@ namespace Application.Repositories
         Task DeleteAsync(Property property);
         Task<List<Property>> GetAllAsync();
         Task UpdateAsync(Property property);
-        Task GetByIdAsync(Guid id);
+        Task<Property> GetByIdAsync(int id);
     }
 }
