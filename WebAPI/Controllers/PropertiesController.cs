@@ -91,6 +91,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<IActionResult> GetProperty(int id)
         {
             var property = await _mediatrSender.Send(new GetPropertyByIdRequest(id));
@@ -108,6 +109,8 @@ namespace WebAPI.Controllers
         #region GetProperties
 
         [HttpGet("all")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
         public async Task<IActionResult> GetProperties()
         {
