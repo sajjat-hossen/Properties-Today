@@ -10,18 +10,27 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PropertiesController : ControllerBase
     {
+        #region Properties
+
         private readonly ISender _mediatrSender;
+
+        #endregion
+
+        #region Constructor
 
         public PropertiesController(ISender mediatrSender)
         {
             _mediatrSender = mediatrSender;
         }
 
+        #endregion
 
+        #region AddNewProperty
 
         [HttpPost("add")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
         public async Task<IActionResult> AddNewProperty([FromBody] NewProperty newPropertyRequest)
         {
             var isSuccessful = await _mediatrSender.Send(new CreatePropertyRequest(newPropertyRequest));
@@ -34,9 +43,14 @@ namespace WebAPI.Controllers
             return BadRequest("Failed to create property");
         }
 
+        #endregion
+
+        #region UpdateProperty
+
         [HttpPut("update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<IActionResult> UpdateProperty([FromBody] UpdateProperty updateProperty)
         {
             var isSuccessful = await _mediatrSender.Send(new UpdatePropertyRequest(updateProperty));
@@ -48,5 +62,27 @@ namespace WebAPI.Controllers
 
             return NotFound("Property does not exists");
         }
+
+        #endregion
+
+        #region DeleteProperty
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> DeleteProperty(int id)
+        {
+            var isSuccessful = await _mediatrSender.Send(new  DeletePropertyRequest(id));
+
+            if (isSuccessful)
+            {
+                return Ok("Property deleted successfully");
+            }
+
+            return NotFound("Property does not exists");
+        }
+
+        #endregion
     }
 }
