@@ -104,5 +104,24 @@ namespace WebAPI.Controllers
         }
 
         #endregion
+
+        #region GetProperties
+
+        [HttpGet("all")]
+
+        public async Task<IActionResult> GetProperties()
+        {
+            var properties = await _mediatrSender.Send(new GetPropertiesRequest());
+
+            if (properties != null)
+            {
+                return Ok(properties);
+            }
+
+            return NotFound("No property found");
+        }
+
+
+        #endregion
     }
 }
