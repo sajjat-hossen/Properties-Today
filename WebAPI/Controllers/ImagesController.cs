@@ -1,4 +1,5 @@
 ﻿using Application.Features.Images.Commands;
+using Application.Features.Images.Queries;
 using Application.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -78,6 +79,26 @@ namespace WebAPI.Controllers
             if (isSuccesful)
             {
                 return Ok("Image deleted successfully");
+            }
+
+            return NotFound("Image does not exists");
+        }
+
+        #endregion
+
+        #region GetImage
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<IActionResult> GetImage(int id)
+        {
+            var image = await _mediatrSender.Send(new GetImageByIdRequest(id));
+
+            if (image != null)
+            {
+                return Ok(image);
             }
 
             return NotFound("Image does not exists");
