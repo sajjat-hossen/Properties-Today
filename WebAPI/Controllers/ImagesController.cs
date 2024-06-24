@@ -105,5 +105,24 @@ namespace WebAPI.Controllers
         }
 
         #endregion
+
+        #region
+
+        [HttpGet("all")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetImages()
+        {
+            var images = await _mediatrSender.Send(new GetImagesRequest());
+
+            if (images != null)
+            {
+                return Ok(images);
+            }
+
+            return NotFound("No images found");
+        }
+
+        #endregion
     }
 }
