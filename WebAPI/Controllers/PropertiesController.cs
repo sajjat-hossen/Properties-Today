@@ -2,7 +2,6 @@
 using Application.Features.Properties.Queries;
 using Application.Models;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
